@@ -1,0 +1,72 @@
+{
+  "kind": "collectionType",
+  "collectionName": "personas",
+  "info": {
+    "singularName": "persona",
+    "pluralName": "personas",
+    "displayName": "Persona",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "apellido_paterno": {
+      "type": "string",
+      "required": true
+    },
+    "apellido_materno": {
+      "type": "string",
+      "required": true
+    },
+    "domicilio": {
+      "type": "string",
+      "required": true
+    },
+    "correo_personal": {
+      "type": "email",
+      "required": true
+    },
+    "nacimiento": {
+      "type": "datetime",
+      "required": true
+    },
+    "carnet": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "celular": {
+      "type": "string",
+      "required": true
+    },
+    "genero": {
+      "type": "enumeration",
+      "enum": [
+        "Masculino",
+        "Femenino"
+      ],
+      "required": true
+    },
+    "peso": {
+      "type": "integer",
+      "required": true
+    },
+    "altura": {
+      "type": "integer",
+      "required": true
+    },
+    "estado": {
+      "type": "boolean",
+      "required": true
+    },
+    "correo_institucional": {
+      "type": "email"
+    }
+  }
+}

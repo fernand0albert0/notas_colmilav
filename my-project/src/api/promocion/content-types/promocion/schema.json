@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "promociones",
+  "info": {
+    "singularName": "promocion",
+    "pluralName": "promociones",
+    "displayName": "Promocion"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "gestion": {
+      "type": "integer",
+      "required": true,
+      "min": 1952
+    },
+    "cadetes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cadete.cadete",
+      "mappedBy": "promocion"
+    }
+  }
+}

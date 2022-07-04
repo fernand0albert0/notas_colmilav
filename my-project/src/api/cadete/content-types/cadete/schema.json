@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cadetes",
+  "info": {
+    "singularName": "cadete",
+    "pluralName": "cadetes",
+    "displayName": "Cadete",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "antiguedad": {
+      "type": "integer",
+      "required": true,
+      "min": 1
+    },
+    "promocion": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::promocion.promocion",
+      "inversedBy": "cadetes"
+    },
+    "anio_militar": {
+      "type": "enumeration",
+      "enum": [
+        "Primer",
+        "Segundo",
+        "Tercer",
+        "Cuarto"
+      ],
+      "required": true
+    },
+    "persona": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::persona.persona"
+    }
+  }
+}
