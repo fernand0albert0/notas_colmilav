@@ -58,29 +58,23 @@ class _LoginAccesoState extends State<LoginAcceso> {
           List<InicioSesion> resultado = DataBase().getIniforme(result);
 
           !resultado.isEmpty
-              ? (
+              ? (auth
+                      .signInWithPhoneNumber("+591" + resultado.first.celular)
+                      .then((confirmationResult) => {
+                            confirmar = confirmationResult,
+                          })
+                  //     auth
+                  //         .sendSignInLinkToEmail(
+                  //     email: resultado.first.correo,
+                  //     actionCodeSettings: ActionCodeSettings(url: "https://notas-colmilav.web.app",handleCodeInApp: true))
+                  //     .then((confirmationResult) => {
+                  //
+                  // print(" Se ,mando el email")
+                  //
+                  // });
 
-              auth
-                  .signInWithPhoneNumber("+591" + resultado.first.celular)
-                  .then((confirmationResult) => {
-                        confirmar = confirmationResult,
-                      })
-          //     auth
-          //         .sendSignInLinkToEmail(
-          //     email: resultado.first.correo,
-          //     actionCodeSettings: ActionCodeSettings(url: "https://notas-colmilav.web.app",handleCodeInApp: true))
-          //     .then((confirmationResult) => {
-          //
-          // print(" Se ,mando el email")
-          //
-          // });
-
-          )
-              :
-
-
-
-              datosProvider.login = "inicio";
+                  )
+              : datosProvider.login = "inicio";
 
           return Form(
               key: formUserKey,
