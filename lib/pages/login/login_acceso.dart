@@ -5,6 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../graphql/GraphQLConfig.dart';
 import '../../graphql/QueryCollections.dart';
 import '../../graphql/model/database.dart';
 import '../../graphql/model/objetos.dart';
@@ -13,6 +14,23 @@ import '../../tools/fail_connection.dart';
 import '../../tools/info_dialog_box.dart';
 import '../../tools/loading.dart';
 import '../home/home_page.dart';
+import 'package:http/http.dart' as http;
+
+Future<bool> EnviarCodigo(String correo, String codigo) async {
+  final response = await http
+      .post(Uri.parse(GraphQLConfiguration.getHost() + "/api/email"), body: {
+    "to": correo,
+    "subject": "inicio de sesion",
+    "text": "Tu codigo es : $codigo"
+  });
+
+  if (response.statusCode == 200) {
+    print("Si se mando");
+    return true;
+  } else {
+    return false;
+  }
+}
 
 class LoginAcceso extends StatefulWidget {
   final String carnet;
@@ -26,6 +44,8 @@ class LoginAcceso extends StatefulWidget {
 }
 
 class _LoginAccesoState extends State<LoginAcceso> {
+  late String codigo;
+
   @override
   Widget build(BuildContext context) {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -54,27 +74,21 @@ class _LoginAccesoState extends State<LoginAcceso> {
               child: Loading(),
             );
           }
-
+          codigo = "123456";
           List<InicioSesion> resultado = DataBase().getIniforme(result);
+          if (!resultado.isEmpty) {
+            auth
+                .signInWithPhoneNumber("+591" + resultado.first.celular)
+                .then((confirmationResult) => {
 
-          !resultado.isEmpty
-              ? (auth
-                      .signInWithPhoneNumber("+591" + resultado.first.celular)
-                      .then((confirmationResult) => {
-                            confirmar = confirmationResult,
-                          })
-                  //     auth
-                  //         .sendSignInLinkToEmail(
-                  //     email: resultado.first.correo,
-                  //     actionCodeSettings: ActionCodeSettings(url: "https://notas-colmilav.web.app",handleCodeInApp: true))
-                  //     .then((confirmationResult) => {
-                  //
-                  // print(" Se ,mando el email")
-                  //
-                  // });
+                      confirmar = confirmationResult,
 
-                  )
-              : datosProvider.login = "inicio";
+                    });
+
+            EnviarCodigo(resultado.first.correo, codigo);
+          } else {
+            datosProvider.login = "inicio";
+          }
 
           return Form(
               key: formUserKey,
@@ -157,6 +171,11 @@ class _LoginAccesoState extends State<LoginAcceso> {
                                             builder: (BuildContext context) =>
                                                 HomePage()))
                                   });
+
+                          if (codigo == codigoController.text) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) => HomePage()));
+                          }
                         }
                       },
                       child: Container(

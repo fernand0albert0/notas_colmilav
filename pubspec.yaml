@@ -39,6 +39,7 @@ dependencies:
   g_recaptcha_v3: ^0.0.5
   firebase_auth: ^3.4.1
   firebase_core: ^1.19.1
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:

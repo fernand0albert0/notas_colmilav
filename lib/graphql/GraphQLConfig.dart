@@ -3,7 +3,7 @@ import "package:graphql_flutter/graphql_flutter.dart";
 
 class GraphQLConfiguration {
 
-  static const String _host = 'localhost:1337';
+  static const String _host = '161.97.151.134:1337';
 
   static String getHost() {
     return "http://$_host";
@@ -15,7 +15,7 @@ class GraphQLConfiguration {
 
   static AuthLink authLink = AuthLink(
     getToken: () async =>
-        'Bearer 5510d179dad60dead1a947f42208ba063d738099adcef87842523b1419fb20c20484d1a3350efeeaee4da5ce46a30439d873bb96a85bdb15c185a8a2c506d9d76a55a06a735771e0341c970a68c069dddfc1581c18feed4c29d3f5216da24b290f4a385286996394feaafc9d54f33a376972bd74dfc32b3a2b9dcd132c9be7be',
+        'Bearer 493fd3e368662c4427cc10b64762d09f7ca4f51433a631b4b8eaa0bbffae47579ff656a29537c1ff7a131ce7b2bef0ac6205e5c0ac789130a5f42f1a569545fb38aa1f97d9ad26a3f61b928de99960abbcf10bdb2679b2dc60934e2aab4374756f606ce6b749b294da13686acdcbf2e7c7140a50ac4cd7da8670fb66dcf433ee',
   );
 
 
