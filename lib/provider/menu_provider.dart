@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_zoom_drawer/config.dart';
 
 
 class MenuProvider with ChangeNotifier {
-  Widget _body =  Container();
+  String _menu = "Inicio";
 
-  Widget get body {
-    return _body;
+  String get menu {
+    return _menu;
   }
 
-  set body(Widget valor) {
-    _body = valor;
+  set menu(String valor) {
+    _menu = valor;
     notifyListeners();
   }
 
@@ -25,7 +26,7 @@ class MenuProvider with ChangeNotifier {
   }
 
 
-  String _carnet = " ";
+  String _carnet = "9768790";
 
   String get carnet  {
     return _carnet;
@@ -35,6 +36,19 @@ class MenuProvider with ChangeNotifier {
     _carnet = valor;
     notifyListeners();
   }
+
+  ZoomDrawerController _drawerController = ZoomDrawerController();
+
+
+  ZoomDrawerController get drawerController {
+    return _drawerController;
+  }
+
+  set drawerController(ZoomDrawerController valor) {
+    _drawerController = valor;
+    notifyListeners();
+  }
+
 
 
 

@@ -25,7 +25,6 @@ Future<bool> EnviarCodigo(String correo, String codigo) async {
   });
 
   if (response.statusCode == 200) {
-    print("Si se mando");
     return true;
   } else {
     return false;
@@ -118,6 +117,18 @@ class _LoginAccesoState extends State<LoginAcceso> {
                         Text(
                           "Codigo enviado al celular " +
                               resultado.first.celular,
+                          textAlign: TextAlign.left,
+                          textScaleFactor: 1.3,
+                          style: TextStyle(
+                              fontFamily: "MontserratMediumItalic",
+                              color: Colors.white),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Text(
+                          "Codigo enviado al correo " +
+                              resultado.first.correo,
                           textAlign: TextAlign.left,
                           textScaleFactor: 1.3,
                           style: TextStyle(
