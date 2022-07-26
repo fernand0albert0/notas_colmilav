@@ -14,11 +14,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
-
   Future<void> getToken() async {
     String token = await GRecaptchaV3.execute('submit') ?? 'null returned';
-
   }
 
   @override
@@ -29,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
       switch (datosProvider.login) {
         case "inicio":
           {
-            return LoginForm();
+            return const LoginForm();
           }
 
         default:
@@ -87,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 5.h,
                     ),
-                    Container(
+                    SizedBox(
                       width: 30.w,
                       child: const Text(
                         "Colegio Militar de Aviacion ",
@@ -99,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 1.h,
                     ),
-                    Container(
+                    SizedBox(
                       width: 30.w,
                       child: const Text(
                         "“Tgral. German bush Becerra”",
@@ -111,13 +108,13 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 width: 50.w,
                 height: 70.h,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 30.w,
                       child: const Text(
                         "INICIO DE SESIÓN",

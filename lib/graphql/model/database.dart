@@ -23,11 +23,21 @@ class DataBase {
         element["attributes"]["apellido_paterno"],
         element["attributes"]["apellido_materno"],
         element["attributes"]["carnet"],
+        element["attributes"]["altura"],
+        element["attributes"]["peso"],
         element["attributes"]["foto"]["data"]["attributes"]["url"],
+
+
+
+        element["attributes"]["militar"]["data"]["attributes"]["promocion"]["data"]["attributes"]["gestion"],
+        element["attributes"]["militar"]["data"]["attributes"]["promocion"]["data"]["attributes"]["nombre"],
+
+
         element["attributes"]["militar"]["data"]["attributes"]["grado"],
         element["attributes"]["militar"]["data"]["attributes"]["antiguedad"],
         element["attributes"]["militar"]["data"]["attributes"]["carnet"],
         element["attributes"]["militar"]["data"]["attributes"]["especialidad"],
+        element["attributes"]["militar"]["data"]["attributes"]["sangre"],
       ));
     }
 

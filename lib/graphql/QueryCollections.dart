@@ -29,20 +29,32 @@ query {
         apellido_paterno
         apellido_materno
         carnet
-        foto{
-          data{
-            attributes{
+        altura
+        peso
+        foto {
+          data {
+            attributes {
               url
             }
           }
         }
-        militar{
-          data{
-            attributes{
+        militar {
+          data {
+            attributes {
+              promocion {
+                data {
+                  attributes {
+                    gestion
+                    nombre
+                  }
+                }
+              }
+
               grado
               antiguedad
               carnet
               especialidad
+              sangre
             }
           }
         }
@@ -50,6 +62,7 @@ query {
     }
   }
 }
+
   """;
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:g_recaptcha_v3/g_recaptcha_v3.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notas/pages/home/home_page.dart';
 import 'package:notas/pages/login/login_page.dart';
 import 'package:notas/provider/menu_provider.dart';
 import 'package:provider/provider.dart';
@@ -14,9 +15,7 @@ void main() async {
   await Firebase.initializeApp();
 
   if (kIsWeb) {
-    bool ready = await GRecaptchaV3.ready(
-        "6LesgaogAAAAACvxESX0hOXKbPShd5GQbwegGk4S"); //--2
-    print("Is Recaptcha ready? $ready");
+    GRecaptchaV3.ready("6LesgaogAAAAACvxESX0hOXKbPShd5GQbwegGk4S");
   }
 
   runApp(

@@ -27,7 +27,7 @@ class _LoadingState extends State<Loading> {
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(vertical: 1.h, horizontal: 30.w),
+            margin: EdgeInsets.symmetric(vertical: 1.h, horizontal: 40.w),
             child: const LinearProgressIndicator(
               color: Colors.amber,
               backgroundColor: Colors.white,

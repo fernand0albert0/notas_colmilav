@@ -3,6 +3,7 @@ import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notas/pages/home/menu.dart';
+import 'package:notas/pages/home/salir.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -32,11 +33,30 @@ class _HomePageState extends State<HomePage> {
         return ElevatedButton(
             onPressed: () {
               datosProvider.menu = titulo;
-              datosProvider.drawerController.toggle?.call();
+
+              if (datosProvider.menu == "CERRAR SESION") {
+
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const Salir(
+                        text: 'Abandonar',
+                        descriptions:
+                            'Desea finalizar esta sesion',
+                        title: 'Salir',
+                      );
+                    });
+                datosProvider.menu =  "INICIO";
+              } else {
+
+
+
+                datosProvider.drawerController.toggle?.call();
+              }
             },
             style: ElevatedButton.styleFrom(
               primary: datosProvider.menu == titulo
-                  ? Colors.amber
+                  ? Colors.grey
                   : Colors.transparent,
               shadowColor: Colors.transparent,
             ),
@@ -59,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                             child: Text(
                           titulo.toUpperCase(),
                           textScaleFactor: 1.2,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Color(0xff1D295D),
                               fontFamily: "MontserratExtraBold"),
                         ))
@@ -73,7 +93,6 @@ class _HomePageState extends State<HomePage> {
                   ],
                 )));
       }
-
       String abreviacion() {
         switch (grado) {
           case "Postulante":
@@ -151,7 +170,6 @@ class _HomePageState extends State<HomePage> {
             }
         }
       }
-
       bool apellidos() {
         if (grado.contains("Cadete") ||
             grado.contains("Brigadier") ||
@@ -189,26 +207,15 @@ class _HomePageState extends State<HomePage> {
               width: 20.w,
               alignment: Alignment.center,
               child: Text(
-                  abreviacion() +
-                      " " +
-                      (apellidos()
-                          ? (nombre +
-                              " " +
-                              apellido_paterno +
-                              " " +
-                              apellido_materno)
-                          : (apellido_paterno +
-                              " " +
-                              apellido_materno +
-                              " " +
-                              nombre)),
+                  "${abreviacion()} ${apellidos() ? ("$nombre $apellido_paterno $apellido_materno") : ("$apellido_paterno $apellido_materno $nombre")}",
                   textScaleFactor: 1.4,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontFamily: "MontserratExtraBold")),
+                  style: const TextStyle(fontFamily: "MontserratExtraBold")),
             ),
-            subMenu("Inicio", Icons.home_outlined),
-
-            subMenu("Salir", Icons.home_outlined),
+            subMenu("INICIO", Icons.home_outlined),
+            subMenu(
+                "EDUCACION FISICA Y DEPORTES", Icons.sports_handball_outlined),
+            subMenu("CERRAR SESION", Icons.home),
           ],
         ),
       );
@@ -218,10 +225,12 @@ class _HomePageState extends State<HomePage> {
       final menuProvider = Provider.of<MenuProvider>(context);
 
       return Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
           shadowColor: Colors.transparent,
           foregroundColor: Colors.transparent,
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.transparent,
+
           leading: IconButton(
             icon: const Icon(
               Icons.menu,
@@ -231,17 +240,17 @@ class _HomePageState extends State<HomePage> {
               menuProvider.drawerController.toggle?.call();
             },
           ),
-
         ),
         body: Container(
           height: 100.h,
           color: Colors.white,
-          child: Menu(),
+          child: const Menu(),
         ),
       );
     }
 
-    return SizedBox(
+    return Container(
+      color: Colors.white,
       height: 100.h,
       width: 100.w,
       child: Query(
@@ -260,10 +269,11 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 3.w),
                 width: 30.w,
                 height: 30.h,
-                child: Loading(),
+                child: const Loading(),
               );
             }
             Persona resultado = DataBase().getPersona(result);
+            datosProvider.datosPersonales=resultado;
 
             return Stack(
               fit: StackFit.passthrough,

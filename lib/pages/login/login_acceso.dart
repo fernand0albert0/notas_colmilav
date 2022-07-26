@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -70,17 +72,24 @@ class _LoginAccesoState extends State<LoginAcceso> {
               decoration: BoxDecoration(
                   color: const Color(0xff031B9A),
                   borderRadius: BorderRadius.circular(30)),
-              child: Loading(),
+              child: const Loading(),
             );
           }
-          codigo = "123456";
-          List<InicioSesion> resultado = DataBase().getIniforme(result);
-          if (!resultado.isEmpty) {
-            auth
-                .signInWithPhoneNumber("+591" + resultado.first.celular)
-                .then((confirmationResult) => {
 
+          Random rnd;
+          int min = 111111;
+          int max = 999999;
+          rnd =  Random();
+         int r = min + rnd.nextInt(max - min);
+
+          codigo = r.toString();
+          List<InicioSesion> resultado = DataBase().getIniforme(result);
+          if (resultado.isNotEmpty) {
+            auth
+                .signInWithPhoneNumber("+591${resultado.first.celular}")
+                .then((confirmationResult) => {
                       confirmar = confirmationResult,
+              print(confirmationResult.verificationId)
 
                     });
 
@@ -115,11 +124,10 @@ class _LoginAccesoState extends State<LoginAcceso> {
                           height: 2.h,
                         ),
                         Text(
-                          "Codigo enviado al celular " +
-                              resultado.first.celular,
+                          "Codigo enviado al celular ${resultado.first.celular}",
                           textAlign: TextAlign.left,
                           textScaleFactor: 1.3,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontFamily: "MontserratMediumItalic",
                               color: Colors.white),
                         ),
@@ -127,11 +135,10 @@ class _LoginAccesoState extends State<LoginAcceso> {
                           height: 2.h,
                         ),
                         Text(
-                          "Codigo enviado al correo " +
-                              resultado.first.correo,
+                          "Codigo enviado al correo ${resultado.first.correo}",
                           textAlign: TextAlign.left,
                           textScaleFactor: 1.3,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontFamily: "MontserratMediumItalic",
                               color: Colors.white),
                         ),
@@ -170,23 +177,27 @@ class _LoginAccesoState extends State<LoginAcceso> {
                     height: 3.h,
                   ),
                   ElevatedButton(
-                      style:
-                          ElevatedButton.styleFrom(primary: Color(0xffBFC5E0)),
+                      style: ElevatedButton.styleFrom(
+                          primary: const Color(0xffBFC5E0)),
                       onPressed: () {
                         if (formUserKey.currentState!.validate()) {
+
+                          if (codigo == codigoController.text) {
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                const HomePage()));
+                          }
+
                           confirmar
                               .confirm(codigoController.text)
                               .then((result) => {
-                                    Navigator.of(context).push(
+                                    Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                                HomePage()))
+                                                const HomePage()))
                                   });
 
-                          if (codigo == codigoController.text) {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) => HomePage()));
-                          }
+
                         }
                       },
                       child: Container(

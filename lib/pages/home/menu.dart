@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notas/pages/home/inicio.dart';
+import 'package:notas/pages/deporte/deporte_page.dart';
+import 'package:notas/pages/inicio/inicio_page.dart';
+import 'package:notas/pages/home/salir.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -18,16 +20,16 @@ class _MenuState extends State<Menu> {
     final menuProvider = Provider.of<MenuProvider>(context);
     Widget menu() {
       switch (menuProvider.menu) {
-        case "Inicio":
+        case "INICIO":
           {
-            return const Inicio();
+            return const InicioPage();
           }
-        case "Salir":
+
+        case "EDUCACION FISICA Y DEPORTES":
           {
-            return Container(
-              color: Colors.amber,
-            );
+            return const DeportePage();
           }
+
 
         default:
           {
