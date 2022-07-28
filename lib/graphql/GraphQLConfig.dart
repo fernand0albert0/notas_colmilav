@@ -3,7 +3,7 @@ import "package:graphql_flutter/graphql_flutter.dart";
 
 class GraphQLConfiguration {
 
-  static const String _host = '161.97.151.134:1337';
+  static const String _host = 'notascolmilav.com:1337';
 
   static String getHost() {
     return "http://$_host";
